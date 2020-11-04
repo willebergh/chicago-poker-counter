@@ -41,6 +41,7 @@ class ListRow extends Component {
                 })
             },
 
+
         ];
 
         return (
