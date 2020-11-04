@@ -2,6 +2,7 @@ import React from "react";
 import { Pressable } from "react-native"
 import { StyleSheet, ScrollView } from "react-native";
 import { Layout, List, ListItem, Button, Text, Divider } from "@ui-kitten/components";
+import { GameContext } from "./Game";
 
 
 const points = [
@@ -14,35 +15,41 @@ const points = [
     { name: "Four of a kind", points: 7 },
     { name: "Straight flush", points: 8 },
     { name: "Royal flush", points: 20 },
-    { name: "Royal straight flush", points: "Win" },
+    // { name: "Royal straight flush", points: "Win" },
 ]
 
+
 const AddPoints = props => {
+    const game = React.useContext(GameContext);
+    const [chosenPoints, setChosenPoints] = React.useState(null);
 
-    const renderButton = () => (
-        <Button size="tiny">Choose</Button>
-    )
+    const handlePress__points = points => e => {
+        setChosenPoints(points);
 
-    const renderListItems = ({ index, item }) => (
-        <ListItem
-            title={item.name}
-            description={item.points}
-            accessoryRight={renderButton}
-        />
-    )
+    }
 
-    const handlePress = points => e => {
-        props.navigation.navigate("Game")
+    const handlePress__player = player => e => {
+        game.addPlayerPoints(player, chosenPoints);
+        props.navigation.navigate("Leaderboard")
     }
 
     return (
-        <Layout>
-
+        <Layout style={styles.root}>
             <ScrollView>
 
-                {points.map(_ => (
+                {chosenPoints ? game.players.map(_ => (
                     <React.Fragment>
-                        <Pressable onPress={handlePress(_.points)}>
+                        <Pressable onPress={handlePress__player(_.name)}>
+                            <Layout style={styles.row}>
+                                <Text category="h5">{_.name}</Text>
+                                <Text category="h5">{_.points}p</Text>
+                            </Layout>
+                        </Pressable>
+                        <Divider />
+                    </React.Fragment>
+                )) : points.map(_ => (
+                    <React.Fragment>
+                        <Pressable onPress={handlePress__points(_.points)}>
                             <Layout style={styles.row}>
                                 <Text category="h5">{_.name}</Text>
                                 <Text category="h5">(+{_.points})</Text>
@@ -53,16 +60,13 @@ const AddPoints = props => {
                 ))}
 
             </ScrollView>
-
         </Layout>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        display: "flex",
-        justifyContent: "flex-start",
-        flexDirection: "column"
+    root: {
+        flexGrow: 1
     }, row: {
         display: "flex",
         justifyContent: "space-between",

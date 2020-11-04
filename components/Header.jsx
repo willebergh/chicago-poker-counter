@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import { Icon, TopNavigation, TopNavigationAction, Divider } from '@ui-kitten/components';
 
 
 const Header = ({ scene, previous, navigation }) => {
@@ -25,17 +25,15 @@ const Header = ({ scene, previous, navigation }) => {
                 ? options.title
                 : scene.route.name;
 
-    React.useEffect(() => {
-        console.warn(scene)
-    }, [scene])
-
-
     return (
-        <TopNavigation
-            alignment='center'
-            accessoryLeft={previous ? BackAction : null}
-            title={title}
-        />
+        <React.Fragment>
+            <TopNavigation
+                alignment='center'
+                accessoryLeft={BackAction}
+                title={title}
+            />
+            <Divider />
+        </React.Fragment>
     )
 };
 
