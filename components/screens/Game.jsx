@@ -49,6 +49,22 @@ const Game = () => {
         reset: () => {
             const newPlayers = players.map(_ => ({ ..._, points: 0 }));
             setPlayers(newPlayers);
+        },
+        getSettings: () => {
+            return ({
+                points: [
+                    { name: "One pair", points: 1 },
+                    { name: "Two pair", points: 2 },
+                    { name: "Three of a kind", points: 3 },
+                    { name: "Straight", points: 4 },
+                    { name: "Flush", points: 5 },
+                    { name: "Full house", points: 6 },
+                    { name: "Four of a kind", points: 7 },
+                    { name: "Straight flush", points: 8 },
+                    { name: "Royal flush", points: 20 },
+                    // { name: "Royal straight flush", points: "Win" },
+                ]
+            })
         }
     }
 

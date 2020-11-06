@@ -47,7 +47,7 @@ const AddPoints = props => {
                         </Pressable>
                         <Divider />
                     </React.Fragment>
-                )) : points.map(_ => (
+                )) : game.getSettings().points.map(_ => (
                     <React.Fragment>
                         <Pressable onPress={handlePress__points(_.points)}>
                             <Layout style={styles.row}>

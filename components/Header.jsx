@@ -29,7 +29,7 @@ const Header = ({ scene, previous, navigation }) => {
         <React.Fragment>
             <TopNavigation
                 alignment='center'
-                accessoryLeft={BackAction}
+                accessoryLeft={previous ? BackAction : null}
                 title={title}
             />
             <Divider />

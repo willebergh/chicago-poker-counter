@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Animated, View } from "react-native";
 import { Layout, Text, Button, Divider, useTheme } from "@ui-kitten/components";
 import { GameContext } from "./Game";
 import Swipeout from "react-native-swipeout";
+import usePrevious from "../../utils/usePrevious";
 
 import ListRow from "../ListRow";
 
@@ -17,9 +18,7 @@ const Row = function (props) {
             overlayColor: "black",
             type: "delete",
             underlayColor: "black",
-            onPress: () => {
-                game.removePlayer(props.name);
-            }
+            onPress: () => game.removePlayer(props.name)
         }
     ]
 
@@ -31,7 +30,7 @@ const Row = function (props) {
                 </Text>
                 <Text category="h3" style={styles.rowPoints}>
                     {props.points} p
-            </Text>
+                    </Text>
             </Layout>
         </Swipeout>
     )
@@ -48,8 +47,7 @@ const Leaderboard = function (props) {
             {
                 game.players.map((x, key) => (
                     <React.Fragment key={key}>
-                        <ListRow name={{ first: x.name, last: x.points }} email="helloworld@dampgang.com" />
-                        <Divider />
+                        <Row {...x} />
                     </React.Fragment>
                 ))
             }

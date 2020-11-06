@@ -13,7 +13,6 @@ const TopTabBar = ({ navigation, state }) => (
         selectedIndex={state.index}
         onSelect={index => navigation.navigate(state.routeNames[index])}>
         <Tab title="Game" />
-        <Tab title="Settings" />
     </TabBar>
 );
 
@@ -23,9 +22,8 @@ const Nav = () => {
     return (
         <NavigationContainer>
 
-            <Navigator tabBar={props => <TopTabBar {...props} />}>
+            <Navigator tabBar={props => null}>
                 <Screen name="Game" component={Game} />
-                <Screen name="Settings" component={Settings} />
             </Navigator>
 
         </NavigationContainer>
